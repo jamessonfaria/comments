@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Comments</string>
+    <string name="acessar">Acessar</string>
+    <string name="acesse_sua_conta">Acesse sua Conta</string>
+    <string name="senha">Senha</string>
+    <string name="email">Email</string>
+    <string name="comments">Comments</string>
+    <string name="developed_by_jamesson_faria">Developed by Jamesson Faria.</string>
+    <string name="nome">nome</string>
+    <string name="data">data</string>
+</resources>
