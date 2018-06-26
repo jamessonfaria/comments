@@ -35,6 +35,11 @@ class ListCommentsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        getComentarios()
+    }
+
     fun getComentarios(){
         if(Util.isNetworkAvaliabe(this)){
 

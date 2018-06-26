@@ -16,11 +16,49 @@ class Network (var context: Context) {
     val URL_APPLICATION: String = "http://teste-aula-ios.herokuapp.com/"
     val QUERY_LOGIN: String = "users/sign_in.json"
     val QUERY_COMMENTS: String = "comments.json"
+    val QUERY_DELETE: String = "comments/"
+    val TAG_JSON: String = ".json"
 
     var myCookie: PersistentCookieStore
 
     init {
         myCookie = PersistentCookieStore(context)
+    }
+
+    fun delete(id: Int, cb: HttpCallback) {
+
+        if (myCookie == null) {
+            myCookie = PersistentCookieStore(context)
+        }
+
+        val client = OkHttpClient()
+        client.setConnectTimeout(30, TimeUnit.SECONDS)
+        client.setWriteTimeout(30, TimeUnit.SECONDS)
+        client.cookieHandler = CookieManager(myCookie, CookiePolicy.ACCEPT_ALL)
+
+        val request = Request.Builder()
+                .url(URL_APPLICATION + QUERY_DELETE + id + TAG_JSON)
+                .delete()
+                .build()
+
+
+        val call = client.newCall(request)
+        call.enqueue(object : Callback {
+            override fun onFailure(request: Request, e: IOException) {
+                if (!call.isCanceled) {
+                    cb.onFailure(null, e)
+                }
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(response: Response) {
+                if (response.isSuccessful) {
+                    cb.onSuccess(response.body().string())
+                } else {
+                    cb.onFailure(response.body().string(), null)
+                }
+            }
+        })
     }
 
     fun login(email: String, password: String, cb: HttpCallback){
