@@ -34,9 +34,11 @@ class SplashScreenActivity : AppCompatActivity() {
 
                     if(existCookies(this@SplashScreenActivity)){
                         startActivity(Intent(this@SplashScreenActivity, ListCommentsActivity::class.java))
+                        overridePendingTransition(R.anim.slide_in_right_animation, R.anim.slide_out_left_animation)
                         finish()
                     }else {
                         startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
+                        overridePendingTransition(R.anim.slide_in_right_animation, R.anim.slide_out_left_animation)
                         finish()
                     }
                 }else {

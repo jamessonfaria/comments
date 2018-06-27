@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
                     runOnUiThread {
                         progress.cancel()
                         startActivity(Intent(this@LoginActivity, ListCommentsActivity::class.java))
+                        overridePendingTransition(R.anim.slide_in_right_animation, R.anim.slide_out_left_animation)
                         finish()
                     }
 

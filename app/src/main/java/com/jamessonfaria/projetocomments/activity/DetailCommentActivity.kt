@@ -48,6 +48,11 @@ class DetailCommentActivity : AppCompatActivity(), OnMapReadyCallback, LocationL
     private var map: SupportMapFragment? = null
     private val INITIAL_REQUEST = 200
 
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_left_animation, R.anim.slide_out_right_animation)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_comment)

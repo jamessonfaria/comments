@@ -10,4 +10,9 @@ class CreateCommentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_comments)
     }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_left_animation, R.anim.slide_out_right_animation)
+    }
 }

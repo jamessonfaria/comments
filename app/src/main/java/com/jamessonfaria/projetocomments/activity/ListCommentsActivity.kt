@@ -32,6 +32,7 @@ class ListCommentsActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
             startActivity(Intent(this@ListCommentsActivity, CreateCommentsActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_right_animation, R.anim.slide_out_left_animation)
         }
     }
 
@@ -59,7 +60,7 @@ class ListCommentsActivity : AppCompatActivity() {
                         val rv: RecyclerView = findViewById(R.id.rvListaComentarios)
                         rv.layoutManager = LinearLayoutManager(this@ListCommentsActivity) as RecyclerView.LayoutManager?
                         rv.hasFixedSize()
-                        rv.adapter = AdapterComentarios(this@ListCommentsActivity, listaComentarios, { comentarioItem: Comentario -> fabItemClicked(comentarioItem)})
+                        rv.adapter = AdapterComentarios(this@ListCommentsActivity, listaComentarios, { comentarioItem: Comentario -> rvItemClicked(comentarioItem)})
 
                     }
 
@@ -80,7 +81,7 @@ class ListCommentsActivity : AppCompatActivity() {
         }
     }
 
-    private fun fabItemClicked(comentario : Comentario) {
+    private fun rvItemClicked(comentario : Comentario) {
 
         val gson: Gson = Gson()
         val type = object : TypeToken<Comentario>() {}.type
@@ -89,5 +90,6 @@ class ListCommentsActivity : AppCompatActivity() {
         var intent: Intent = Intent(this@ListCommentsActivity, DetailCommentActivity::class.java)
         intent.putExtra("COMENTARIO", comentarioJson)
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right_animation, R.anim.slide_out_left_animation)
     }
 }
