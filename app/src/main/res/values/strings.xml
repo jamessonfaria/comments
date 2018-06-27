@@ -8,4 +8,6 @@
     <string name="developed_by_jamesson_faria">Developed by Jamesson Faria.</string>
     <string name="nome">nome</string>
     <string name="data">data</string>
+    <string name="ex_descricao">ex: descrição</string>
+    <string name="ex_nome">ex: nome</string>
 </resources>
