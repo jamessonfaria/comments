@@ -2,7 +2,10 @@ package com.jamessonfaria.projetocomments.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -13,6 +16,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
+import android.view.View
+import android.widget.EditText
+import com.github.rodlibs.persistencecookie.PersistentCookieStore
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -23,6 +29,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.jamessonfaria.projetocomments.R
 import com.jamessonfaria.projetocomments.model.Comentario
 import com.jamessonfaria.projetocomments.util.Network
+import com.jamessonfaria.projetocomments.util.Util
+import kotlinx.android.synthetic.main.activity_create_comments.*
+import org.jetbrains.anko.*
+import org.json.JSONArray
 
 class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
 
@@ -42,6 +52,41 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.slide_in_left_animation, R.anim.slide_out_right_animation)
+    }
+
+    fun postComment(view: View) {
+        if(Util.isNetworkAvaliabe(this)) {
+
+            var progress = indeterminateProgressDialog("Salvando Comentário...", null)
+            val net = Network(this@CreateCommentsActivity)
+
+            val comentario: Comentario = Comentario(0, txtNome.text.toString(), txtDescricao.text.toString(),
+                    "","","","","")
+
+            alert("Deseja criar o comentário ?", "Informação") {
+                yesButton {
+
+                    net.postComment(comentario, object : Network.HttpCallback {
+                        override fun onSuccess(response: String) {
+                            runOnUiThread {
+                                progress.cancel()
+                                alert("Comentário criado com sucesso.", null) {
+                                    yesButton { finish() }
+                                }.show()
+                            }
+                        }
+
+                        override fun onFailure(response: String?, throwable: Throwable?) {
+                            progress.cancel()
+                            toast("ERRO")
+                        }
+
+                    })
+                }
+
+                noButton { progress.cancel() }
+            }.show()
+        }
     }
 
     // ############## Metodos do Mapa

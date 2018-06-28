@@ -3,8 +3,10 @@ package com.jamessonfaria.projetocomments.util
 import android.content.Context
 import android.net.ConnectivityManager
 import com.github.rodlibs.persistencecookie.PersistentCookieStore
+import com.jamessonfaria.projetocomments.model.Comentario
 import com.squareup.okhttp.*
 import org.json.JSONArray
+import java.io.File
 import java.io.IOException
 import java.net.CookieManager
 import java.net.CookiePolicy
@@ -115,8 +117,6 @@ class Network (var context: Context) {
         client.setWriteTimeout(20, TimeUnit.SECONDS)
         client.cookieHandler = CookieManager(myCookie, CookiePolicy.ACCEPT_ALL)
 
-//        val JSON = MediaType.parse("application/json; charset=utf-8")
-//        val body = RequestBody.create(JSON, json)
         val request = Request.Builder()
                 .url(URL_APPLICATION + QUERY_COMMENTS)
                 .get()
@@ -143,6 +143,98 @@ class Network (var context: Context) {
 
         })
 
+    }
+
+    fun postComment(comentario: Comentario, cb: HttpCallback) {
+
+        val json = "{\"comment\":{" +
+                "\"user\":\"" + comentario.user + "\"," +
+                "\"content\":\"" + comentario.content + "\"}}"
+
+        val JSON = MediaType.parse("application/json; charset=utf-8")
+        val body = RequestBody.create(JSON, json)
+        if (myCookie == null) {
+            myCookie = PersistentCookieStore(context)
+        }
+
+        val client = OkHttpClient()
+        client.setConnectTimeout(30, TimeUnit.SECONDS)
+        client.setWriteTimeout(30, TimeUnit.SECONDS)
+        client.cookieHandler = CookieManager(myCookie, CookiePolicy.ACCEPT_ALL)
+
+        val request = Request.Builder()
+                .url(URL_APPLICATION + QUERY_COMMENTS)
+                .post(body)
+                .build()
+
+        val call = client.newCall(request)
+        call.enqueue(object : Callback {
+            override fun onFailure(request: Request, e: IOException) {
+                if (!call.isCanceled) {
+                    cb.onFailure(null, e)
+                }
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(response: Response) {
+                if (response.isSuccessful) {
+                    cb.onSuccess(response.body().string())
+                } else {
+                    cb.onFailure(response.body().string(), null)
+                }
+            }
+        })
+    }
+
+    fun postCommentWithPicture(comentario: Comentario, path: String, cb: HttpCallback) {
+        val MEDIA_TYPE_PNG = MediaType.parse("image/jpg")
+        val multiPart = MultipartBuilder()
+        multiPart.type(MultipartBuilder.FORM)
+
+        try {
+            multiPart.addFormDataPart("comment[user]", comentario.user)
+            multiPart.addFormDataPart("comment[content]", comentario.content)
+            multiPart.addFormDataPart("comment[picture]", "imagem.jpg",
+                    RequestBody.create(MEDIA_TYPE_PNG, File(path)))
+        } catch (e: NullPointerException) {
+
+        }
+
+        if (myCookie == null) {
+            myCookie = PersistentCookieStore(context)
+        }
+
+        val client = OkHttpClient()
+        client.setConnectTimeout(120, TimeUnit.SECONDS)
+        client.setWriteTimeout(120, TimeUnit.SECONDS)
+        client.setReadTimeout(120, TimeUnit.SECONDS)
+        client.cookieHandler = CookieManager(myCookie, CookiePolicy.ACCEPT_ALL)
+
+        val requestBody = multiPart.build()
+        val request = Request.Builder()
+                .url(QUERY_COMMENTS)
+                .post(requestBody)
+                .build()
+
+
+        val call = client.newCall(request)
+        call.enqueue(object : Callback {
+            override fun onFailure(request: Request, e: IOException) {
+                if (!call.isCanceled) {
+                    cb.onFailure(null, e)
+                }
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(response: Response) {
+                val value = response.body().string()
+                if (response.isSuccessful) {
+                    cb.onSuccess(value)
+                } else {
+                    cb.onFailure(value, null)
+                }
+            }
+        })
     }
 
     interface HttpCallback {
