@@ -41,6 +41,7 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
     protected var locationManager: LocationManager? = null
     private var map: SupportMapFragment? = null
     private val INITIAL_REQUEST = 200
+    var latLng: LatLng? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +62,7 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
             val net = Network(this@CreateCommentsActivity)
 
             val comentario: Comentario = Comentario(0, txtNome.text.toString(), txtDescricao.text.toString(),
-                    "","","","","")
+                    "","","", latLng!!.latitude.toString(), latLng!!.longitude.toString())
 
             alert("Deseja criar o comentário ?", "Informação") {
                 yesButton {
@@ -124,11 +125,12 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
         } else {
             @SuppressLint("MissingPermission") val location = locationManager!!.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if (location != null) {
-                val latLng = LatLng(location.latitude, location.longitude)
+                latLng = LatLng(location.latitude, location.longitude)
                 mGoogleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14.0f))
 
                 mGoogleMap!!.addMarker(MarkerOptions()
-                        .position(latLng))
+                        .position(latLng!!)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.mark)))
 
             }
         }

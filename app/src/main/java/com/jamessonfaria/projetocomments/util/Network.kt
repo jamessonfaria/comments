@@ -148,6 +148,8 @@ class Network (var context: Context) {
     fun postComment(comentario: Comentario, cb: HttpCallback) {
 
         val json = "{\"comment\":{" +
+                "\"lat\":\"" + comentario.lat + "\"," +
+                "\"lng\":\"" + comentario.lng + "\"," +
                 "\"user\":\"" + comentario.user + "\"," +
                 "\"content\":\"" + comentario.content + "\"}}"
 
