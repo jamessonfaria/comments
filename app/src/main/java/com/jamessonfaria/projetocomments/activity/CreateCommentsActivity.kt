@@ -2,6 +2,7 @@ package com.jamessonfaria.projetocomments.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context
@@ -19,6 +20,9 @@ import android.support.v4.app.ActivityCompat
 import android.view.View
 import android.widget.EditText
 import com.github.rodlibs.persistencecookie.PersistentCookieStore
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.common.GooglePlayServicesRepairableException
+import com.google.android.gms.location.places.ui.PlaceAutocomplete
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -42,6 +46,7 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
     private var map: SupportMapFragment? = null
     private val INITIAL_REQUEST = 200
     var latLng: LatLng? = null
+    private val REQUEST_PLACE_PICKER = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +73,7 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
                 yesButton {
 
                     net.postComment(comentario, object : Network.HttpCallback {
+
                         override fun onSuccess(response: String) {
                             runOnUiThread {
                                 progress.cancel()
@@ -140,20 +146,49 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
 
         mGoogleMap!!.setMapType(GoogleMap.MAP_TYPE_NORMAL)
 
+        mGoogleMap!!.setOnMapClickListener(GoogleMap.OnMapClickListener { latLnNew ->
+            mGoogleMap!!.addMarker(MarkerOptions()
+                    .position(latLnNew)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.mark)))
 
-//        if(comentario?.lat != null && comentario?.lng != null && !comentario?.lat.equals("") && !comentario?.lng.equals("")){
-//
-//            val latLng = LatLng(comentario!!.lat.toDouble(), comentario!!.lng.toDouble())
-//
-//            mGoogleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f))
-//            mGoogleMap!!.addMarker(MarkerOptions()
-//                    .position(latLng)
-//                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.mark)))
-//            //mGoogleMap!!.setMyLocationEnabled(true)
-//            mGoogleMap!!.getUiSettings().isMyLocationButtonEnabled = false
-//            mGoogleMap!!.setMapType(GoogleMap.MAP_TYPE_NORMAL)
-//        }
+            latLng = latLnNew
 
+        })
+
+    }
+
+    fun callPlaces(view: View) {
+        val intent: Intent
+        try {
+            intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(this@CreateCommentsActivity)
+            startActivityForResult(intent, REQUEST_PLACE_PICKER)
+        } catch (e: GooglePlayServicesRepairableException) {
+            e.printStackTrace()
+        } catch (e: GooglePlayServicesNotAvailableException) {
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_PLACE_PICKER) {
+            if (resultCode == Activity.RESULT_OK) {
+                val place = PlaceAutocomplete.getPlace(this, data)
+                //                this.onPlaceSelected(place);
+
+                latLng = LatLng(place.latLng.latitude, place.latLng.longitude)
+
+                mGoogleMap!!.addMarker(MarkerOptions()
+                        .position(latLng!!)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.mark)))
+                mGoogleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14.0f))
+
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                val status = PlaceAutocomplete.getStatus(this, data)
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -182,7 +217,9 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onLocationChanged(p0: Location?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onLocationChanged(location: Location?) {
+        if (location != null) {
+            toast("chegueiiiii " + location.latitude + " " + location.longitude)
+        }
     }
 }

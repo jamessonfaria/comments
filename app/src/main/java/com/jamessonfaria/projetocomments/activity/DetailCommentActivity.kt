@@ -37,6 +37,7 @@ import com.jamessonfaria.projetocomments.util.Util
 import kotlinx.android.synthetic.main.activity_detail_comment.*
 import kotlinx.android.synthetic.main.adapter_lista_comentarios.view.*
 import org.jetbrains.anko.*
+import org.json.JSONArray
 
 
 class DetailCommentActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {

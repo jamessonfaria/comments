@@ -81,4 +81,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_check_white_24dp"
         android:onClick="postComment"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_search_white_24dp"
+        android:onClick="callPlaces"/>
 </android.support.constraint.ConstraintLayout>

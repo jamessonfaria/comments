@@ -18,6 +18,7 @@ import com.jamessonfaria.projetocomments.util.Network
 import com.jamessonfaria.projetocomments.util.Util
 import kotlinx.android.synthetic.main.activity_list_comments.*
 import org.jetbrains.anko.*
+import org.json.JSONArray
 
 
 class ListCommentsActivity : AppCompatActivity() {

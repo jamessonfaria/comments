@@ -9,6 +9,7 @@ import com.jamessonfaria.projetocomments.util.Network
 import com.jamessonfaria.projetocomments.util.Util
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.*
+import org.json.JSONArray
 
 class LoginActivity : AppCompatActivity() {
 

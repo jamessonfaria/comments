@@ -6,6 +6,7 @@ import com.github.rodlibs.persistencecookie.PersistentCookieStore
 import com.jamessonfaria.projetocomments.model.Comentario
 import com.squareup.okhttp.*
 import org.json.JSONArray
+import org.json.JSONException
 import java.io.File
 import java.io.IOException
 import java.net.CookieManager
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit
 class Network (var context: Context) {
 
     val URL_APPLICATION: String = "http://teste-aula-ios.herokuapp.com/"
+    val URL_APPLICATION_GOOGLE: String = "https://maps.googleapis.com/maps/api/geocode/json?latlng="
     val QUERY_LOGIN: String = "users/sign_in.json"
     val QUERY_COMMENTS: String = "comments.json"
     val QUERY_DELETE: String = "comments/"
