@@ -71,13 +71,15 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
     internal var imgPhoto: ImageView? = null
     internal var img1Path = ""
     private val INTENT_CAMERA = 19
-    internal var path_image: String? = null
+    var path_image: String = ""
     internal var dataFoto: String? = null
     internal var nameFoto: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_comments)
+
+        supportActionBar!!.setTitle("Novo Comentário")
 
         loadMap()
         imgPhoto = imageViewePhoto
@@ -100,8 +102,9 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
             alert("Deseja criar o comentário ?", "Informação") {
                 yesButton {
 
-                    net.postComment(comentario, object : Network.HttpCallback {
+                    //net.postComment(comentario, object : Network.HttpCallback {
 
+                    net.postCommentWithPicture(comentario, img1Path, object : Network.HttpCallback {
                         override fun onSuccess(response: String) {
                             runOnUiThread {
                                 progress.cancel()
@@ -154,7 +157,8 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
     }
 
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_PLACE_PICKER) { // MAPA
             if (resultCode == Activity.RESULT_OK) {

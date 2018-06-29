@@ -50,7 +50,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.CUSTOM"/>
-        <activity android:name=".activity.ListCommentsActivity" />
+        <activity android:name=".activity.ListCommentsActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.CUSTOM" />
         <activity android:name=".activity.DetailCommentActivity" />
         <activity android:name=".activity.CreateCommentsActivity"></activity>
 

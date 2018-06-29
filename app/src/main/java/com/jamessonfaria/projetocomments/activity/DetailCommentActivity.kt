@@ -2,6 +2,7 @@ package com.jamessonfaria.projetocomments.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -17,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
+import android.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -57,6 +59,8 @@ class DetailCommentActivity : AppCompatActivity(), OnMapReadyCallback, LocationL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_comment)
+
+        supportActionBar!!.setTitle("Detalhe Comentário")
 
         val gson = Gson()
         val stringComentario = intent.getStringExtra("COMENTARIO")

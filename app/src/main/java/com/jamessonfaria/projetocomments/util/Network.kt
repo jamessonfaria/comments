@@ -198,6 +198,8 @@ class Network (var context: Context) {
         try {
             multiPart.addFormDataPart("comment[user]", comentario.user)
             multiPart.addFormDataPart("comment[content]", comentario.content)
+            multiPart.addFormDataPart("comment[lat]", comentario.lat)
+            multiPart.addFormDataPart("comment[lng]", comentario.lng)
             multiPart.addFormDataPart("comment[picture]", "imagem.jpg",
                     RequestBody.create(MEDIA_TYPE_PNG, File(path)))
         } catch (e: NullPointerException) {
@@ -216,7 +218,7 @@ class Network (var context: Context) {
 
         val requestBody = multiPart.build()
         val request = Request.Builder()
-                .url(QUERY_COMMENTS)
+                .url(URL_APPLICATION + QUERY_COMMENTS)
                 .post(requestBody)
                 .build()
 

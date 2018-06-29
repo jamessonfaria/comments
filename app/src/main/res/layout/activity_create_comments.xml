@@ -90,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        app:srcCompat="@color/cardview_light_background" />
+        app:srcCompat="@drawable/no_image" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -132,6 +132,7 @@
         android:clickable="true"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="mini"
+        android:onClick="gallery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fbCamera"
         app:srcCompat="@drawable/ic_photo_white_24dp" />

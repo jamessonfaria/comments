@@ -6,4 +6,5 @@
     <color name="holo_blue_dark">#e3053a</color>
     <color name="holo_red_light">#0075ee</color>
     <color name="accent_material_light_1">#0075ee</color>
+    <color name="azulLight">#00a7ee</color>
 </resources>
