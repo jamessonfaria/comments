@@ -11,6 +11,8 @@ import android.widget.Toast
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -26,12 +28,17 @@ import org.json.JSONArray
 
 class ListCommentsActivity : AppCompatActivity() {
 
+    private var mFirebaseAnalytics: FirebaseAnalytics? = null
+
     private var listaComentarios: List<Comentario> = ArrayList<Comentario>()
     lateinit var mAdView : AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_comments)
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val refreshedToken = FirebaseInstanceId.getInstance().token
 
         MobileAds.initialize(this, "ca-app-pub-2262809297014272~8826799325")
 
@@ -50,6 +57,12 @@ class ListCommentsActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         getComentarios()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mFirebaseAnalytics!!.setCurrentScreen(this@ListCommentsActivity,
+                "MainActivity", null)
     }
 
     fun getComentarios(){
