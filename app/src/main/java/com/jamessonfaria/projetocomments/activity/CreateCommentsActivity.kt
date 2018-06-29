@@ -80,6 +80,7 @@ class CreateCommentsActivity : AppCompatActivity(), OnMapReadyCallback, Location
         setContentView(R.layout.activity_create_comments)
 
         loadMap()
+        imgPhoto = imageViewePhoto
     }
 
     override fun finish() {

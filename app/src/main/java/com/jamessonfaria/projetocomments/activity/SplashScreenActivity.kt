@@ -9,9 +9,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.view.View
+import com.crashlytics.android.Crashlytics
 import com.github.rodlibs.persistencecookie.PersistentCookieStore
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.jamessonfaria.projetocomments.R
 import com.jamessonfaria.projetocomments.util.Util
+import io.fabric.sdk.android.Fabric
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.toast
@@ -21,9 +26,12 @@ import java.util.*
 class SplashScreenActivity : AppCompatActivity() {
 
     private var timer: Timer? = null
+    lateinit var mAdView : AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Fabric.with(this, Crashlytics())
         setContentView(R.layout.splash_screen_main)
 
         val handler: Handler = Handler()

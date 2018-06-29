@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,9 +22,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA7uzv48j9BteQV5gTkWa3CeA_bF6U6fvk" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="531fed1354c6d9d76cb3d927e7352a68aaefb0a7"
+            />
+
 
         <activity android:name=".activity.SplashScreenActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.CUSTOM">
             <intent-filter>

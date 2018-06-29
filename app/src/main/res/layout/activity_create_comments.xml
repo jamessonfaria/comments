@@ -11,7 +11,7 @@
         android:id="@+id/fragmentMapa"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -32,7 +32,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentMapa"
-        app:layout_constraintVertical_bias="0.120000005"
         app:layout_constraintVertical_chainStyle="packed">
 
         <android.support.design.widget.TextInputEditText
@@ -50,8 +49,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/fabSalvar"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewePhoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
@@ -74,13 +73,24 @@
         android:layout_marginStart="8dp"
         android:clickable="true"
         android:focusable="true"
+        android:onClick="postComment"
         app:elevation="0dp"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_check_white_24dp"
-        android:onClick="postComment"/>
+        app:srcCompat="@drawable/ic_check_white_24dp" />
+
+    <ImageView
+        android:id="@+id/imageViewePhoto"
+        android:layout_width="0dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/fabSalvar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:srcCompat="@color/cardview_light_background" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -90,12 +100,12 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
+        android:onClick="callPlaces"
         app:backgroundTint="@color/colorPrimaryDark"
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_search_white_24dp"
-        android:onClick="callPlaces"/>
+        app:srcCompat="@drawable/ic_search_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fbCamera"
@@ -105,12 +115,12 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:clickable="true"
+        android:onClick="takePicture"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_photo_camera_white_24dp"
-        android:onClick="takePicture"/>
+        app:srcCompat="@drawable/ic_photo_camera_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fbAlbum"

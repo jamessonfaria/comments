@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "346979582953",
+    "firebase_url": "https://comments-b8fca.firebaseio.com",
+    "project_id": "comments-b8fca",
+    "storage_bucket": "comments-b8fca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346979582953:android:8bf9b0a3c010cf5d",
+        "android_client_info": {
+          "package_name": "com.jamessonfaria.projetocomments"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346979582953-il8j87d8pq9sprdp07lbjmuf1713eubv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH5b0ezxgI5NbnV-X-iBIwDpaFddks1B4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

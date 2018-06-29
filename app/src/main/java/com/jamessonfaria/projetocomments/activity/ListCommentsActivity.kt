@@ -8,6 +8,9 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -24,10 +27,17 @@ import org.json.JSONArray
 class ListCommentsActivity : AppCompatActivity() {
 
     private var listaComentarios: List<Comentario> = ArrayList<Comentario>()
+    lateinit var mAdView : AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_comments)
+
+        MobileAds.initialize(this, "ca-app-pub-2262809297014272~8826799325")
+
+        mAdView = findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build()
+        mAdView.loadAd(adRequest)
 
         getComentarios()
 
