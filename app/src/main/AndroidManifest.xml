@@ -42,17 +42,17 @@
             />
 
 
-        <activity android:name=".activity.SplashScreenActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.CUSTOM">
+        <activity android:name=".activity.SplashScreenActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.CUSTOM" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.CUSTOM"/>
-        <activity android:name=".activity.ListCommentsActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.CUSTOM" />
-        <activity android:name=".activity.DetailCommentActivity" />
-        <activity android:name=".activity.CreateCommentsActivity"></activity>
+        <activity android:name=".activity.LoginActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.CUSTOM" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ListCommentsActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.CUSTOM" android:screenOrientation="portrait" />
+        <activity android:name=".activity.DetailCommentActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.CreateCommentsActivity" android:screenOrientation="portrait"/>
 
 
 

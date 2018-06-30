@@ -123,14 +123,16 @@ class ListCommentsActivity : AppCompatActivity() {
     }
 
     override fun onRestart() {
+
         super.onRestart()
         getComentarios()
     }
 
     override fun onResume() {
+
         super.onResume()
         mFirebaseAnalytics!!.setCurrentScreen(this@ListCommentsActivity,
-                "MainActivity", null)
+                "ListCommentsActivity", null)
     }
 
     fun getComentarios(){
